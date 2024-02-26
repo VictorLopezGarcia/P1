@@ -1,10 +1,10 @@
 /*
  * TITLE: PROGRAMMING II LABS
  * SUBTITLE: Practical 1
- * AUTHOR 1: ***************************** LOGIN 1: **********
- * AUTHOR 2: ***************************** LOGIN 2: **********
- * GROUP: *.*
- * DATE: ** / ** / **
+ * AUTHOR 1: López García, Víctor LOGIN 1: victor.lopezg@udc.es
+ * AUTHOR 2: García Iglesias, Iago LOGIN 1: iago.garcia.iglesias@udc.es
+ * GROUP: 2.4
+ * DATE: 26 / 02 / 24
  */
 
 #include "static_list.h"
@@ -84,9 +84,10 @@ void updateItem(tItemL d , tPosL p, tList *L){
     }
 }
 tPosL findItem(tUserName d, tList L){
+    tPosL i;
     if(!isEmptyList(L)){
-        for (int i = 0; i <= L.ultPos; ++i) {
-            if(d == L.usuarios[i].userName)
+        for (i = 0; i <= L.ultPos; ++i) {
+            if(strcmp(d,L.usuarios[i].userName)==0)
             {
                 return i;
             }

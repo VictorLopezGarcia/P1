@@ -17,7 +17,7 @@ void print_list(tList list) {
         pos = first(list);
         while (pos != LNULL) {
             item = getItem(pos, list);
-            printf(" %s numPlays %d", item.userName, item.numPlay);
+            printf(" %s numPlays %d ", item.userName, item.numPlay);
             pos = next(pos, list);
         }
     }

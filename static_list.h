@@ -4,7 +4,7 @@
  * AUTHOR 1: López García, Víctor LOGIN 1: victor.lopezg@udc.es
  * AUTHOR 2: García Iglesias, Iago LOGIN 1: iago.garcia.iglesias@udc.es
  * GROUP: 2.4
- * DATE: ** / ** / **
+ * DATE: 26 / 02 / 24
  */
 
 #ifndef STATIC_LIST_H
