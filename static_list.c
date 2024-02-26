@@ -9,94 +9,90 @@
 
 #include "static_list.h"
 
-void createEmptyList(tList L){
-    for (int i = 0; i < MAX_ELEMENTOS; ++i) {
-        L.posicion[i] = LNULL;
-    }
+void createEmptyList(tList *L){
+    L->ultPos = LNULL;
 }
 
 bool isEmptyList(tList L){
-    for (int i = 0; i < MAX_ELEMENTOS; ++i) {
-        if(L.posicion[i] != LNULL)
-        {
-            return false;
-        }
-    }
-    return true;
+    if(L.ultPos == LNULL) return true;
+    else return false;
 }
 
 tPosL first(tList L){
     if (!isEmptyList(L)){
-        for (int i = 0; i < MAX_ELEMENTOS; ++i) {
-            if(L.posicion[i] != LNULL)
-                return L.posicion[i];
-        }
+        return 0;
     }
     return LNULL;
 }
 
 tPosL last(tList L){
-    if (!isEmptyList(L)){
-        for (int i = MAX_ELEMENTOS-1; i >= 0; --i) {
-            if(L.posicion[i] != LNULL)
-                return L.posicion[i];
-        }
-    }
-    return LNULL;
+    return L.ultPos;
 }
 tPosL next(tPosL p, tList L){
-    if(p != LNULL){
-        for (int i = p+1; i < MAX_ELEMENTOS; ++i) {
-            if(L.posicion[i] != LNULL)
-                return L.posicion[i];
-        }
+    if(p > LNULL && p < L.ultPos){
+        return p+1;
     }
     return LNULL;
 }
 
 
 tPosL previous(tPosL p, tList L){
-    if(p != LNULL){
-        for (int i = p-1 ; i >= 0; --i) {
-            if(L.posicion[i] != LNULL)
-                return L.posicion[i];
-        }
+    if(p > 0 && p <= L.ultPos){
+        return p-1;
     }
     return LNULL;
 }
 
-bool insertItem(tItemL d, tPosL p, tList L){
-    if(p >= MAX_ELEMENTOS || last(L) == MAX_ELEMENTOS) {
-        return false;
-    }
-    else if(p == LNULL)
+bool insertItem(tItemL d, tPosL p, tList *L){
+    if(p >= LNULL && p < MAX_ELEMENTOS && L -> ultPos < MAX_ELEMENTOS-1)
     {
-        if(!isEmptyList(L))
+        if(p == LNULL || p > L -> ultPos)
         {
-            L.usuarios[last(L)+1] = d;
-            L.posicion[last(L)+1] = last(L)+1;
+            L -> usuarios[L -> ultPos+1] = d;
+            L -> ultPos++;
+            return true;
         }
         else {
-            L.usuarios[0] = d;
-            L.posicion[0] = 0;
+            for (int i = L -> ultPos; i >= p ; --i) {
+                L -> usuarios[i+1] = L -> usuarios[i];
+            }
+            L -> usuarios[p] = d;
+            L -> ultPos++;
+            return true;
         }
-        return true;
     }
-    if(L.posicion[p] == LNULL)
-    {
-        L.usuarios[p] = d;
-        L.posicion[p] = p;
-        return true;
-    }
-    else{
-        for (int i = 0; i < MAX_ELEMENTOS; ++i) {
-            
+    else return false;
+
+
+}
+void deleteAtPosition(tPosL p, tList *L){
+    if (p <= L -> ultPos && p > LNULL){
+        for (int i = p; i < L -> ultPos; ++i) {
+            L -> usuarios[i]=L -> usuarios[i+1];
         }
+        L -> ultPos--;
     }
 }
-void deleteAtPosition(tPosL p, tList L);
-tItemL getItem(tPosL p, tList L);
-void updateItem(tItemL d , tPosL p, tList L);
-tPosL findItem(tItemL d, tList L);
+tItemL getItem(tPosL p, tList L){
+    if (p <= L.ultPos && p > LNULL){
+        return L.usuarios[p];
+    }
+}
+void updateItem(tItemL d , tPosL p, tList *L){
+    if (p <= L -> ultPos && p > LNULL){
+        L -> usuarios[p] = d;
+    }
+}
+tPosL findItem(tUserName d, tList L){
+    if(!isEmptyList(L)){
+        for (int i = 0; i <= L.ultPos; ++i) {
+            if(d == L.usuarios[i].userName)
+            {
+                return i;
+            }
+        }
+    }
+    return LNULL;
+}
 
 /* Write your code here... */
