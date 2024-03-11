@@ -59,7 +59,7 @@ int main() {
     print_list(list);
 
 
- /* find */
+    /* find */
     pos = findItem("user33", list);
     if (pos == LNULL) {
         printf("user33 Not found\n");
